@@ -9,6 +9,23 @@ import java.util.HashMap;
 import java.util.List;
 
 public class RemoteLoader implements  IRemoteLoader{
+    private volatile static RemoteLoader uniqueInstance;
+    private RemoteLoader() { //No code needed inside constructor - empty constructor
+
+    } //private constructor needed to prevent everyone else from instantiating
+    //private means no one outside of this class can access it
+    public static RemoteLoader getInstance() {
+        if(uniqueInstance == null) {
+            synchronized (RemoteLoader.class) {
+                if(uniqueInstance == null) {
+                    uniqueInstance = new RemoteLoader();
+                }
+            }
+        }
+        return uniqueInstance;
+    }
+
+
     HashMap<Integer, RemoteControl> remoteControls = new HashMap<>();
     @Override
     public void setup(int id, List<DeviceData> devices) {

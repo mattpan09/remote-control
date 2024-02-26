@@ -11,7 +11,11 @@ import java.util.List;
 @RequestMapping("/remotes")
 public class RemoteController {
 
-    IRemoteLoader remoteLoader = new RemoteLoader();
+//    IRemoteLoader remoteLoader = new RemoteLoader();
+    //If singleton, this code throws an error because the constructor is private
+
+    //Use getInstance() method to get the singleton instance
+    RemoteLoader remoteLoader = RemoteLoader.getInstance();
 
     @PostMapping("/{id}")
     public boolean setup(@PathVariable int id, @RequestBody List<DeviceData> devices) {
