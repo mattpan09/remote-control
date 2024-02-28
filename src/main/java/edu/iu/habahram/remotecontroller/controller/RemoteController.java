@@ -17,11 +17,12 @@ public class RemoteController {
     //Use getInstance() method to get the singleton instance
     RemoteLoader remoteLoader = RemoteLoader.getInstance();
 
-    @PostMapping("/{id}")
+    @PostMapping("/{id}") //id is the remote control as we have multiple remote controls
     public boolean setup(@PathVariable int id, @RequestBody List<DeviceData> devices) {
         remoteLoader.setup(id, devices);
         return  true;
-    }
+    } //Sets up the remote control with the devices
+    //Each device, in a slot, has a type and location
 
     @GetMapping("/{id}/on/{slot}")
     public String turnOn(@PathVariable int id, @PathVariable int slot) {

@@ -3,8 +3,8 @@ package edu.iu.habahram.remotecontroller.repository;
 import edu.iu.habahram.remotecontroller.model.DeviceData;
 import edu.iu.habahram.remotecontroller.model.Light;
 import edu.iu.habahram.remotecontroller.model.RemoteControl;
+import edu.iu.habahram.remotecontroller.model.Stereo;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,7 +34,11 @@ public class RemoteLoader implements  IRemoteLoader{
             switch (device.type()) {
                 case "light":
                     Light light = new Light(device.location());
-                    remoteControl.setCommand(device.slot(), light::on, light::off);
+                    remoteControl.setCommand(device.slot(), () -> light.on(), () -> light.off());
+                    break;
+                case "stereo":
+                    Stereo stereo = new Stereo(device.location());
+                    remoteControl.setCommand(device.slot(), () -> stereo.on(), () -> stereo.off());
                     break;
             }
         }
